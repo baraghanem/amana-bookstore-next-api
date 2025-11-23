@@ -1,17 +1,17 @@
 import Link from 'next/link';
 // Assuming the utility file is accessible at '@/lib/dataHelpers'
-import { Book } from '@/lib/dataHelpers';
+import { Book } from '@/lib/dataHelpers'; 
 
 // Function to fetch book data from the internal API route
 async function getBooksData(): Promise<Book[]> {
   // In a real Vercel environment, you often need the full URL (e.g., process.env.VERCEL_URL),
   // but for local development and simplicity, we use the full localhost path.
   // This helps ensure the Server Component fetch works reliably.
-  const res = await fetch('http://localhost:3000/api/books', {
+  const res = await fetch('http://localhost:3000/api/books', { 
     // Disable caching to see changes instantly
-    cache: 'no-store'
+    cache: 'no-store' 
   });
-
+  
   if (!res.ok) {
     // Log the error and throw to handle it in the try/catch block
     console.error(`API Fetch Error: ${res.status} ${res.statusText}`);
@@ -25,7 +25,7 @@ async function getBooksData(): Promise<Book[]> {
 export default async function Home() {
   let books: Book[] = [];
   let error: string | null = null;
-
+  
   try {
     books = await getBooksData();
   } catch (e) {
@@ -59,8 +59,8 @@ export default async function Home() {
             {books.length > 0 ? (
               books.map((book) => (
                 // Use a standard <a> tag to link to the raw API response for inspection
-                <a
-                  key={book.id}
+                <a 
+                  key={book.id} 
                   href={`/api/books/${book.id}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -71,28 +71,28 @@ export default async function Home() {
                       {book.title}
                     </h2>
                     <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400 mb-4">{book.author}</p>
-
+                    
                     <div className="space-y-1 text-gray-600 dark:text-gray-300 text-sm">
                       <p>
-                        <strong className="font-semibold">Price:</strong>
+                        <strong className="font-semibold">Price:</strong> 
                         <span className="ml-1 text-lg font-extrabold text-green-600 dark:text-green-400">${book.price.toFixed(2)}</span>
                       </p>
                       <p>
-                        <strong className="font-semibold">Rating:</strong>
+                        <strong className="font-semibold">Rating:</strong> 
                         <span className="ml-1">{book.rating.toFixed(1)} / 5.0 ({book.reviewCount} reviews)</span>
                       </p>
                       <p>
-                        <strong className="font-semibold">Published:</strong>
+                        <strong className="font-semibold">Published:</strong> 
                         <span className="ml-1">{book.datePublished}</span>
                       </p>
                     </div>
 
                     <div className="mt-4 flex flex-wrap gap-2">
-                      {book.genre?.map(tag => (
-                        <span key={tag} className="px-3 py-1 text-xs font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                          {tag}
-                        </span>
-                      ))}
+                        {book.genre?.map(tag => (
+                            <span key={tag} className="px-3 py-1 text-xs font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-200">
+                                {tag}
+                            </span>
+                        ))}
                     </div>
                   </div>
                 </a>
@@ -105,11 +105,11 @@ export default async function Home() {
           </div>
         )}
       </main>
-
+      
       <footer className="mt-16 text-center text-gray-400 dark:text-gray-600 text-sm">
         <p>
           Data served from local JSON files via Next.js API Routes.
-          <br />
+          <br/>
           (Click any book card to view the raw API response for that book ID.)
         </p>
       </footer>
